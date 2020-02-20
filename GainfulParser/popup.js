@@ -45,7 +45,11 @@ function checkSpot() {
         chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
 
             chrome.tabs.executeScript(tabs[0].id, {file: "parse.js"}, function (result) {
-                spot=result[0]["spot"];
+                try {
+                    spot = result[0]["spot"];
+                } catch (e) {
+                    spot = "Exception!"
+                }
                 sendState(spot)
 
             });
